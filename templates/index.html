@@ -1,0 +1,145 @@
+{% extends "layout.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block main %}
+<div class="welcome-area" id="welcome">
+
+  <!-- ***** Header Text Start ***** -->
+  <div class="header-text">
+      <div class="container">
+          <div class="row">
+              <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
+                  <h1>Coding can seem <strong class="italian-font">daunting </strong><br>
+                  Not when you learn from <strong class="italian-font no-split">the best </strong> projects on Github</h1>
+                  <p>NoteHub helps you discover very insightful repositories on Github<br>
+                  Just choose the language you want to discover projects about and let NoteHub lead you</p>
+                  <a href="{{ url_for('register') }}" class="main-button-slider">Register for an account</a>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- ***** Header Text End ***** -->
+</div>
+<!-- ***** Welcome Area End ***** -->
+
+<!-- ***** Features Small Start ***** -->
+<section class="section home-feature">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="row">
+                  <!-- ***** Features Small Item Start ***** -->
+                  <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
+                      <div class="features-small-item">
+                          <div class="icon">
+                              <i><img src="../static/images/featured-item-01.png" alt=""></i>
+                          </div>
+                          <h5 class="features-title">Projects to learn from</h5>
+                          <p>Discover most starred projects on Github and save your favourites</p>
+                      </div>
+                  </div>
+                  <!-- ***** Features Small Item End ***** -->
+
+                  <!-- ***** Features Small Item Start ***** -->
+                  <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
+                      <div class="features-small-item">
+                          <div class="icon">
+                              <i><img src="../static/images/featured-item-01.png" alt=""></i>
+                          </div>
+                          <h5 class="features-title">Save notes</h5>
+                          <p>You can save notes about projects that are interesting to you</p>
+                      </div>
+                  </div>
+                  <!-- ***** Features Small Item End ***** -->
+
+                  <!-- ***** Features Small Item Start ***** -->
+                  <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s">
+                      <div class="features-small-item">
+                          <div class="icon">
+                              <i><img src="../static/images/featured-item-01.png" alt=""></i>
+                          </div>
+                          <h5 class="features-title">Community based</h5>
+                          <p>You can see everyones notes and their favourite repos</p>
+                      </div>
+                  </div>
+                  <!-- ***** Features Small Item End ***** -->
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<!-- ***** Blog Start ***** -->
+<section class="section" id="blog">
+  <div class="container">
+      <!-- ***** Section Title Start ***** -->
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="center-heading">
+                  <h2 class="section-title">Blog Entries</h2>
+              </div>
+          </div>
+          <div class="offset-lg-3 col-lg-6">
+              <div class="center-text">
+                  <p>Integer molestie aliquam gravida. Nullam nec arcu finibus, imperdiet nulla vitae, placerat nibh. Cras maximus venenatis molestie.</p>
+              </div>
+          </div>
+      </div>
+      <!-- ***** Section Title End ***** -->
+
+      <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="blog-post-thumb">
+                  <div class="img">
+                      <img src="../static/images/blog-item-01.png" alt="">
+                  </div>
+                  <div class="blog-content">
+                      <h3>
+                          <a href="#">Vivamus ac vehicula dui</a>
+                      </h3>
+                      <div class="text">
+                        Cras aliquet ligula dui, vitae fermentum velit tincidunt id. Praesent eu finibus nunc. Nulla in sagittis eros. Aliquam egestas augue.
+                      </div>
+                      <a href="#" class="main-button">Read More</a>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="blog-post-thumb">
+                  <div class="img">
+                      <img src="../static/images/blog-item-02.png" alt="">
+                  </div>
+                  <div class="blog-content">
+                      <h3>
+                          <a href="#">Phasellus convallis augue</a>
+                      </h3>
+                      <div class="text">
+                          Aliquam commodo ornare nisl, et scelerisque nisl dignissim ac. Vestibulum finibus urna ut velit venenatis, vel ultrices sapien mattis.
+                      </div>
+                      <a href="#" class="main-button">Read More</a>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="blog-post-thumb">
+                  <div class="img">
+                      <img src="../static/images/blog-item-03.png" alt="">
+                  </div>
+                  <div class="blog-content">
+                      <h3>
+                          <a href="#">Nam gravida purus non</a>
+                      </h3>
+                      <div class="text">
+                          Maecenas eu erat vitae dui convallis consequat vel gravida nulla. Vestibulum finibus euismod odio, ut tempus enim varius eu.
+                      </div>
+                      <a href="#" class="main-button">Read More</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- ***** Blog End ***** -->
+{% endblock %}

@@ -1,0 +1,317 @@
+{% extends "layout.html" %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500,700,900" rel="stylesheet">
+    <link href="./../static/css/style.css" rel="stylesheet">
+
+    <title>NoteHub</title>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/font-awesome.css">
+
+    <link rel="stylesheet" href="../static/css/notehub.css">
+
+  </head>
+    
+  <body>
+    
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="#" class="logo">
+                            <img src="../static/images/logo.png" alt="NoteHub"/>
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <!-- if user is connected -->
+                        {% if not session["user_id"] %} 
+                          <ul class="nav">
+                            <li><a href="#welcome">Home</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="#contact-us">log in</a></li>
+                          </ul>
+                        {% else %}
+                          <ul class="nav">
+                            <li><a href="#welcome">Feed</a></li>
+                            <li><a href="#welcome">Discover</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="#contact-us">Favourites</a></li>
+                            <li><a href="#contact-us">Account</a></li>
+                          </ul>
+                        {% endif %}
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <!-- ***** Welcome Area Start ***** -->
+    <main>
+    {% if not session["user_id"] %}
+      <div class="welcome-area" id="welcome">
+
+          <!-- ***** Header Text Start ***** -->
+          <div class="header-text">
+              <div class="container">
+                  <div class="row">
+                      <div class="offset-xl-3 col-xl-6 offset-lg-2 col-lg-8 col-md-12 col-sm-12">
+                          <h1>Coding can seem <strong class="italian-font">daunting </strong><br>
+                          Not when you learn from <strong class="italian-font no-split">the best </strong> projects on Github</h1>
+                          <p>NoteHub helps you discover very insightful repositories on Github<br>
+                          Just choose the language you want to discover projects about and let NoteHub lead you</p>
+                          <a href="#features" class="main-button-slider">Register for an account</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- ***** Header Text End ***** -->
+      </div>
+      <!-- ***** Welcome Area End ***** -->
+
+      <!-- ***** Features Small Start ***** -->
+      <section class="section home-feature">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="row">
+                          <!-- ***** Features Small Item Start ***** -->
+                          <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
+                              <div class="features-small-item">
+                                  <div class="icon">
+                                      <i><img src="../static/images/featured-item-01.png" alt=""></i>
+                                  </div>
+                                  <h5 class="features-title">Projects to learn from</h5>
+                                  <p>Discover most starred projects on Github and save your favourites</p>
+                              </div>
+                          </div>
+                          <!-- ***** Features Small Item End ***** -->
+
+                          <!-- ***** Features Small Item Start ***** -->
+                          <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
+                              <div class="features-small-item">
+                                  <div class="icon">
+                                      <i><img src="../static/images/featured-item-01.png" alt=""></i>
+                                  </div>
+                                  <h5 class="features-title">Save notes</h5>
+                                  <p>You can save notes about projects that are interesting to you</p>
+                              </div>
+                          </div>
+                          <!-- ***** Features Small Item End ***** -->
+
+                          <!-- ***** Features Small Item Start ***** -->
+                          <div class="col-lg-4 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s">
+                              <div class="features-small-item">
+                                  <div class="icon">
+                                      <i><img src="../static/images/featured-item-01.png" alt=""></i>
+                                  </div>
+                                  <h5 class="features-title">Community based</h5>
+                                  <p>You can see everyones notes and their favourite repos</p>
+                              </div>
+                          </div>
+                          <!-- ***** Features Small Item End ***** -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+
+      <!-- ***** Blog Start ***** -->
+      <section class="section" id="blog">
+          <div class="container">
+              <!-- ***** Section Title Start ***** -->
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="center-heading">
+                          <h2 class="section-title">Blog Entries</h2>
+                      </div>
+                  </div>
+                  <div class="offset-lg-3 col-lg-6">
+                      <div class="center-text">
+                          <p>Integer molestie aliquam gravida. Nullam nec arcu finibus, imperdiet nulla vitae, placerat nibh. Cras maximus venenatis molestie.</p>
+                      </div>
+                  </div>
+              </div>
+              <!-- ***** Section Title End ***** -->
+
+              <div class="row">
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="blog-post-thumb">
+                          <div class="img">
+                              <img src="../static/images/blog-item-01.png" alt="">
+                          </div>
+                          <div class="blog-content">
+                              <h3>
+                                  <a href="#">Vivamus ac vehicula dui</a>
+                              </h3>
+                              <div class="text">
+                                Cras aliquet ligula dui, vitae fermentum velit tincidunt id. Praesent eu finibus nunc. Nulla in sagittis eros. Aliquam egestas augue.
+                              </div>
+                              <a href="#" class="main-button">Read More</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="blog-post-thumb">
+                          <div class="img">
+                              <img src="../static/images/blog-item-02.png" alt="">
+                          </div>
+                          <div class="blog-content">
+                              <h3>
+                                  <a href="#">Phasellus convallis augue</a>
+                              </h3>
+                              <div class="text">
+                                  Aliquam commodo ornare nisl, et scelerisque nisl dignissim ac. Vestibulum finibus urna ut velit venenatis, vel ultrices sapien mattis.
+                              </div>
+                              <a href="#" class="main-button">Read More</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="blog-post-thumb">
+                          <div class="img">
+                              <img src="../static/images/blog-item-03.png" alt="">
+                          </div>
+                          <div class="blog-content">
+                              <h3>
+                                  <a href="#">Nam gravida purus non</a>
+                              </h3>
+                              <div class="text">
+                                  Maecenas eu erat vitae dui convallis consequat vel gravida nulla. Vestibulum finibus euismod odio, ut tempus enim varius eu.
+                              </div>
+                              <a href="#" class="main-button">Read More</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <!-- ***** Blog End ***** -->
+    
+      {% else %}
+      <!-- ***** Feed Start ***** -->
+      <section class="section" id="blog">
+          <div class="container">
+              <!-- ***** Section Title Start ***** -->
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="center-heading">
+                          <h2 class="section-title">Blog Entries</h2>
+                      </div>
+                  </div>
+                  <div class="offset-lg-3 col-lg-6">
+                      <div class="center-text">
+                          <p>Integer molestie aliquam gravida. Nullam nec arcu finibus, imperdiet nulla vitae, placerat nibh. Cras maximus venenatis molestie.</p>
+                      </div>
+                  </div>
+              </div>
+              <!-- ***** Section Title End ***** -->
+
+              <div class="row">
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="blog-post-thumb">
+                          <div class="img">
+                              <img src="../static/images/blog-item-01.png" alt="">
+                          </div>
+                          <div class="blog-content">
+                              <h3>
+                                  <a href="#">Vivamus ac vehicula dui</a>
+                              </h3>
+                              <div class="text">
+                                Cras aliquet ligula dui, vitae fermentum velit tincidunt id. Praesent eu finibus nunc. Nulla in sagittis eros. Aliquam egestas augue.
+                              </div>
+                              <a href="#" class="main-button">Read More</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="blog-post-thumb">
+                          <div class="img">
+                              <img src="../static/images/blog-item-02.png" alt="">
+                          </div>
+                          <div class="blog-content">
+                              <h3>
+                                  <a href="#">Phasellus convallis augue</a>
+                              </h3>
+                              <div class="text">
+                                  Aliquam commodo ornare nisl, et scelerisque nisl dignissim ac. Vestibulum finibus urna ut velit venenatis, vel ultrices sapien mattis.
+                              </div>
+                              <a href="#" class="main-button">Read More</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-6 col-sm-12">
+                      <div class="blog-post-thumb">
+                          <div class="img">
+                              <img src="../static/images/blog-item-03.png" alt="">
+                          </div>
+                          <div class="blog-content">
+                              <h3>
+                                  <a href="#">Nam gravida purus non</a>
+                              </h3>
+                              <div class="text">
+                                  Maecenas eu erat vitae dui convallis consequat vel gravida nulla. Vestibulum finibus euismod odio, ut tempus enim varius eu.
+                              </div>
+                              <a href="#" class="main-button">Read More</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <!-- ***** Blog End ***** -->
+    {% endif %}
+    </main>
+
+    
+    
+    <!-- ***** Footer Start ***** -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright">Copyright &copy; NoteHub</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- jQuery -->
+    <script src="../static/js/jquery-2.1.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="../static/js/popper.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <!-- Plugins -->
+    <script src="../static/js/scrollreveal.min.js"></script>
+    <script src="../static/js/waypoints.min.js"></script>
+    <script src="../static/js/jquery.counterup.min.js"></script>
+    <script src="../static/js/imgfix.min.js"></script> 
+    
+    <!-- Global Init -->
+    <script src="../static/js/custom.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+
+{% block title %}Discover{% endblock %}
+
+{% block main %}
+
+<!-- ***** Discover Start ***** -->
+<section class="section">
+  <div class="container mt-4 ">
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="center-heading">
+              <h2 class="section-title">Discover</h2>
+          </div>
+        </div>
+        <div class="col-md-8 offset-md-2">
+            <!-- Post Form -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form class="search-bar" action="/discover" method="get">
+
+                          <select name="language" class="form-select form-select-lg mt-3 mb-3 mr-4 p-1 block" aria-label=".form-select-lg example" style="width: 100%;">
+                            <option selected disabled>Select a language</option>
+                            <option value="python">Python</option>
+                            <option value="cpp">C++</option>
+                            <option value="c">C</option>
+                            <option value="java">Java</option>
+                            <option value="js">JavaScript</option>
+                            <option value="rust">Rust</option>
+                            <option value="ts">TypeScript</option>
+                            <option value="go">Go</option>
+                          </select>
+                          
+                        <button type="submit" class="main-button launch">Launch</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+        {% if chart %}
+          <div class="col-lg-12 rm-img image-container"><embed type="image/svg+xml" src= "{{ chart|safe }}"></div>
+          
+            <div class="container mt-5">
+              <h1 class="mb-4">Projects</h1>
+              <div class="list-group">
+                      {% for repo_dict in repos_dict %}
+                      <div class="card">
+                        <div class="card-body">
+
+                          <h5 class="card-title"><a href="{{ repo_dict.html_url }}" class="text-decoration-none" target="_blank">{{ repo_dict.name }}</a></h5>
+                          <p class="mb-1">{{ repo_dict.description }}</p>
+
+                        </div>
+                      </div>
+                      {% endfor %}
+                  
+
+                  
+              </div>
+          </div>
+      
+
+        {% endif %}
+    </div>
+  </div>
+  
+</section>
+
+
+
+<!-- ***** Discover End ***** -->
+
+<script>
+
+  // let button = document.querySelector('.launch');
+
+  // // Asynchronous function to fetch the image from the server
+  // button.addEventListener('click', async function(imageUrl){
+  //   // fetch url of the generated image
+  //   try {
+  //         // Fetch the image from the server
+  //         let response = await fetch(imageUrl);
+          
+  //         // Check if the response is ok (status code 200-299)
+  //         if (!response.ok) {
+  //             throw new Error(`HTTP error! status: ${response.status}`);
+  //         }
+          
+  //         // Create an img element
+  //         let embed = document.createElement('embed');
+          
+  //         // Set the src of the img element to the fetched image URL
+  //         img.src = imageUrl;
+          
+  //         // Optionally, set the alt attribute for the image
+  //         img.type = "image/svg+xml";
+          
+  //         // Append the img element to the image container
+  //         document.getElementById('image-container').appendChild(embed);
+  //     } catch (error) {
+  //         console.error('Error fetching the svg:', error);
+  //     }
+
+  // })
+  
+  // // Asynchronous function to fetch the image from the server
+  // async function fetchAndDisplayImage(imageUrl) {
+  //     try {
+  //         // Fetch the image from the server
+  //         let response = await fetch(imageUrl);
+          
+  //         // Check if the response is ok (status code 200-299)
+  //         if (!response.ok) {
+  //             throw new Error(`HTTP error! status: ${response.status}`);
+  //         }
+          
+  //         // Create an img element
+  //         let embed = document.createElement('embed');
+          
+  //         // Set the src of the img element to the fetched image URL
+  //         img.src = imageUrl;
+          
+  //         // Optionally, set the alt attribute for the image
+  //         img.type = "image/svg+xml";
+          
+  //         // Append the img element to the image container
+  //         document.getElementById('image-container').appendChild(embed);
+  //     } catch (error) {
+  //         console.error('Error fetching the svg:', error);
+  //     }
+  // }
+
+  // // URL of the generated image on the server
+  // const imageUrl = 'http://localhost:8000/path/to/your/generated_image.svg';
+
+  // // Call the async function to fetch and display the image
+  // fetchAndDisplayImage(imageUrl);
+</script>
+
+{% endblock %}
+
