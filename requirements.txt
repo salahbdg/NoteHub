@@ -5,3 +5,4 @@ pygal
 asyncio
 requests
 cs50
+gunicorn
