@@ -152,6 +152,3 @@ def discover():
     #return render_template("discover.html")
 
 
-
-if __name__ == "__main__":
-    app.run()

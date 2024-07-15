@@ -1,7 +1,7 @@
-cs50
-Flask
+Flask==3.0.1
 Flask-Session
 Werkzeug
 pygal
 asyncio
 requests
+cs50
