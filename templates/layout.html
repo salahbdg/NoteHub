@@ -21,6 +21,10 @@
     <link href="./../static/css/style.css" rel="stylesheet">
 
 
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="/static/images/favicon.png">
+
+
   </head>
   
   <body>
@@ -47,7 +51,7 @@
                         {% else %}
                           <ul class="nav">
                             <li><a href="{{ url_for('index') }}">Feed</a></li>
-                            <li><a href="{{ url_for('discover') }}">Discover</a></li>
+                            <li><a href="{{ url_for('discover') }}" class="discover-bck">Discover</a></li>
                             <li><a href="{{ url_for('blog') }}">Blog</a></li>
                             <li><a href="">Favourites</a></li>
                             <li><a href="{{ url_for('account') }}">Account</a></li>

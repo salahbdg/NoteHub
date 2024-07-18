@@ -35,7 +35,7 @@ db = SQL("sqlite:///noteHubDB.db")
 
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
     """Show the homepage"""
 
@@ -45,7 +45,25 @@ def index():
     
     # If user is logged in, show the feed
     else:
-      return render_template("feed.html")
+      """Show the feed page"""
+      if request.method == "POST":
+        # Get the post content
+        title = request.form.get("title")
+        post_content = request.form.get("postContent")
+
+        # Insert the post into the database
+        query = "INSERT INTO Posts (title, postText, userID) VALUES (?, ?, ?)"
+        db.execute(query, title, post_content, session["user_id"])
+
+        # Redirect to the feed
+        return redirect("/")
+      
+      # Get the posts from the database
+      query = "SELECT * FROM Posts ORDER BY postDate DESC"
+      posts = db.execute(query)
+      return render_template("feed.html", posts=posts)
+  
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -60,14 +78,16 @@ def login():
         password = request.form.get("password")
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        query = "SELECT * FROM Users WHERE username = ?"
+        rows = db.execute(query, username)
 
         # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], password):
+        if len(rows) != 1 or not check_password_hash(rows[0]["hashPass"], password):
             return render_template("login.html", error="Invalid username and/or password")
         
         # Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = rows[0]["ID"]
+        session["username"] = rows[0]["username"]
 
         # Redirect user to home page
         return redirect("/")
@@ -88,19 +108,22 @@ def register():
         confirmation_password = request.form.get("confirmation")
 
         # To check if the username is already taken
-        users = db.execute("SELECT * FROM users WHERE username = ?", username)
+        query = "SELECT * FROM Users WHERE username = ?"
+        Users = db.execute(query, username)
 
 
-        if (len(username) == 0) or (len(email) == 0) or (len(users) != 0) or (len(password.strip()) == 0) or (password != confirmation_password):
+        if (len(username) == 0) or (len(email) == 0) or (len(Users) != 0) or (len(password.strip()) == 0) or (password != confirmation_password):
             return render_template("register.html", error="Invalid registration details. Please try again.")
         else:
-            db.execute("INSERT INTO users (username,email, hash, favouriteID, noteID) VALUES (?,?,?,?,?)", username, email, generate_password_hash(password), 1, 1)
+            query = "INSERT INTO Users (username,mail, hashPass) VALUES (?,?,?)"
+            db.execute(query, username, email, generate_password_hash(password))
             return redirect("/login")
 
     return render_template("register.html")
 
 
 @app.route("/logout")
+@login_required
 def logout():
     """Log user out"""
 
@@ -116,7 +139,10 @@ def logout():
 def account():
     """Show the account page"""
 
-    return render_template("account.html")
+    query = "SELECT * FROM Users WHERE ID = ?"
+    user = db.execute(query, session["user_id"])[0]
+
+    return render_template("account.html", user=user)
 
 
 @app.route("/blog")
@@ -126,29 +152,51 @@ def blog():
     return render_template("blog.html")
 
 # the associated function. 
-@app.route("/discover", methods=["GET", "POST"])
+@app.route("/discover", methods=["GET"])
+@login_required
 def discover(): 
     
-    if request.method == "GET":
-      if session.get("user_id") is None:
-        return redirect(url_for('login'))
-      # username
-      username = db.execute("SELECT username FROM users WHERE id = ?", session["user_id"])[0]["username"]
+    if session.get("user_id") is None:
+      return redirect(url_for('login'))
+    # username
+    query = "SELECT username FROM Users WHERE ID = ?"
+    username = db.execute(query, session["user_id"])[0]["username"]
 
-      # get language
-      language = request.args.get('language')
-      print(language)
+    # get language
+    language = request.args.get('language')
+    print(language)
 
-      if language is None:
-        return render_template("discover.html")
-      
-      else:
+    if language is None:
+      return render_template("discover.html")
+    
+    else:
 
-        chart, repos_dict = generateSvg(language, username)  # this will render output in flask app
+      chart, repos_dict = generateSvg(language, username)  # this will render output in flask app
 
-        # this will render output in flask app
-        return render_template('discover.html', chart = chart, repos_dict = repos_dict)
+      # this will render output in flask app
+      return render_template('discover.html', chart = chart, repos_dict = repos_dict)
       
     #return render_template("discover.html")
 
+
+@app.route("/deletePost", methods=["POST"])
+@login_required
+def delete():
+    """Delete a post"""
+    if request.method == "POST":
+      # Get the post ID
+      post_id = request.form.get("postID")
+      print("gezzzzzzzzzzzzz")
+      print(post_id)
+
+      # Delete the post from the database
+      query = "DELETE FROM Posts WHERE postID = ?"
+      db.execute(query, post_id)
+
+      return redirect("/")
+
+
+@app.template_filter('getUsername')
+def getUsername(userID):
+    return db.execute("SELECT * FROM Users WHERE ID = ?", userID)[0]["username"].capitalize()
 

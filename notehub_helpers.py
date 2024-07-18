@@ -1,5 +1,6 @@
 from flask import redirect, render_template, session
 from functools import wraps
+from datetime import datetime
 
 
 import requests
@@ -88,3 +89,15 @@ def generateSvg(language, username="admin"):
   chart.add('', plot_dicts)
   chart.render_to_file(f'./static/images/{linkt}.svg')
   return chart.render_data_uri(), repos_dict
+
+
+
+
+def get_current_date_str():
+    # Get the current date and time
+    now = datetime.now()
+    # Format the date as YYYY-MM-DD
+    date_str = now.strftime('%Y-%m-%d')
+    return date_str
+
+

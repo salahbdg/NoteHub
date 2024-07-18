@@ -3,7 +3,19 @@
 {% block title %}Feed{% endblock %}
 
 {% block main %}
-
+<script src="https://cdn.tiny.cloud/1/k77x6f3bcv9gttzpbt0gh6qk7fy9cqxweydnztboeg0t2ix1/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  // Initialize TinyMCE on the textarea
+  tinymce.init({
+      selector: 'textarea#editor',
+      menubar: false,
+      plugins: 'lists link image charmap print preview hr anchor pagebreak',
+      toolbar: 'undo redo | formatselect | bold italic backcolor | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help',
+      content_css: '//www.tiny.cloud/css/codepen.min.css'
+  });
+</script>
 
 
 <!-- ***** Feed Start ***** -->
@@ -19,12 +31,12 @@
             <!-- Post Form -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <form id="postForm">
+                    <form action="/" method="post">
                         <div class="form-group">
-                          <textarea class="form-control" id="titleContent" rows="1" placeholder="Title"></textarea>
+                          <textarea class="form-control" id="titleContent" rows="1" placeholder="Title" name="title"></textarea>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" id="postContent" rows="3" placeholder="What's on your mind?"></textarea>
+                          <textarea id="editor" class="form-control" id="postContent" rows="3" placeholder="What's on your mind?" name="postContent"></textarea>
                         </div>
                         <button type="submit" class="main-button">Post</button>
                     </form>
@@ -34,15 +46,23 @@
             <!-- Feed -->
             <div id="feed">
                 <!-- Example Post -->
-                <div class="card mb-4">
+                {% for post in posts %}
+                  <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">Why Linux is special</h5>
-                        <p class="text-left">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed auctor, nunc id consequat tincidunt, elit nisl tincidunt nunc, nec tincidunt nisl nunc id nunc. Sed euismod, nisl nec lacinia tincidunt, velit mauris tincidunt nunc, nec tincidunt nisl nunc id nunc. Sed euismod, nisl nec lacinia tincidunt, velit mauris tincidunt nunc, nec tincidunt nisl nunc id nunc. Sed euismod, nisl nec lacinia tincidunt, velit mauris tincidunt nunc, nec tincidunt nisl nunc id nunc. Sed euismod, nisl nec lacinia tincidunt, velit mauris tincidunt nunc, nec tincidunt nisl nunc id nunc.
-                        </p>
-                        <p class="card-text"><small class="text-muted">Posted on: 2023-01-01</small> By <strong><a href="/{{ username }}">Kamil65</a></strong> </p>
+                        <h5 class="card-title">{{  post.title }}</h5>
+                        <p class="text-left">{{ post.postText | safe }}</p>
+                        <p class="card-text"><small class="text-muted">Posted on: {{ post.postDate }}</small> By <strong><a href="/{{ username }}">{{ post.UserID | getUsername }}</a></strong> </p>
+                        {% if post.UserID == session["user_id"] %}
+                          <form action="/deletePost" method="post">
+                            <input type="hidden" name="postID" value="{{ post.PostID }}">
+                            <button class="rounded-button" type="submit">
+                              <img src="/static/images/trash-bin.png" alt="Trash Icon">
+                            </button>
+                          </form>
+                        {% endif %}
                     </div>
-                </div>
+                  </div>
+                {% endfor %}
                 <!-- More posts will be dynamically added here -->
                 <div class="card mb-4">
                   <div class="card-body">

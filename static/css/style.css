@@ -32,3 +32,29 @@
 .block{
   display: block;
 }
+
+.discover-bck{
+  background-color: #e6cc5c;
+  border-radius: 10px;
+}
+
+/* Style for the rounded button */
+.rounded-button {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 0.5em;
+}
+
+/* Style for the trash icon inside the button */
+.rounded-button img {
+  width: 40px; /* Adjust the size of the icon */
+  height: 40px;
+  vertical-align: middle; /* Center the icon vertically */
+}
+
+.rounded-button img:hover {
+  filter: invert(0.1); /* Change the color of the icon on hover */
+}
