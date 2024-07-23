@@ -89,7 +89,7 @@ def generateSvg(language, username="admin"):
   chart.title = f'Most-Starred {language.upper()} Projects on GitHub'
   chart.x_labels = names
   chart.add('', plot_dicts)
-  chart.render_to_file(f'./static/images/{linkt}.svg')
+  #chart.render_to_file(f'./static/images/{linkt}.svg')
   return chart.render_data_uri(), repos_dict
 
 

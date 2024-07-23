@@ -86,6 +86,7 @@
         card.style.cursor = 'pointer';
         card.addEventListener('click', function() {
             const targetId = card.getAttribute('data-target');
+            console.log("hhhhhh" + targetId);
             const image = document.getElementById(`${targetId}`);
 
             if (image.src.includes('star.png')) {
