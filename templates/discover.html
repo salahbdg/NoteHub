@@ -19,19 +19,19 @@
                 <div class="card-body">
                     <form class="search-bar" action="/discover" method="get">
 
-                          <select name="language" class="form-select form-select-lg mt-3 mb-3 mr-4 p-1 block" aria-label=".form-select-lg example" style="width: 100%;">
-                            <option selected disabled>Select a language</option>
-                            <option value="python">Python</option>
-                            <option value="cpp">C++</option>
-                            <option value="c">C</option>
-                            <option value="java">Java</option>
-                            <option value="js">JavaScript</option>
-                            <option value="rust">Rust</option>
-                            <option value="ts">TypeScript</option>
-                            <option value="go">Go</option>
-                          </select>
-                          
-                        <button type="submit" class="main-button launch">Launch</button>
+                        <select name="language" class="select-language">
+                          <option selected disabled>Select a language</option>
+                          <option value="python">Python</option>
+                          <option value="cpp">C++</option>
+                          <option value="c">C</option>
+                          <option value="java">Java</option>
+                          <option value="js">JavaScript</option>
+                          <option value="rust">Rust</option>
+                          <option value="ts">TypeScript</option>
+                          <option value="go">Go</option>
+                        </select>
+                        
+                        <button type="submit" class="main-button launch-search">Launch</button>
                     </form>
                 </div>
                 
@@ -45,11 +45,18 @@
               <div class="list-group">
                       {% for repo_dict in repos_dict %}
                       <div class="card">
-                        <div class="card-body">
+                        <div class="card-body favourite" data-target="{{ loop.index0 }}">
 
                           <h5 class="card-title"><a href="{{ repo_dict.html_url }}" class="text-decoration-none" target="_blank">{{ repo_dict.name }}</a></h5>
                           <p class="mb-1">{{ repo_dict.description }}</p>
 
+                          <!-- Add to Favourites -->
+                          
+                            <button class="rounded-button" type="submit">
+                              <img id="{{ loop.index0 }}" src="/static/images/star.png" alt="star">
+                            </button>
+                         
+                          <!-- End of Add to Favourites -->
                         </div>
                       </div>
                       {% endfor %}
@@ -71,6 +78,24 @@
 <!-- ***** Discover End ***** -->
 
 <script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.favourite');
+
+    cards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function() {
+            const targetId = card.getAttribute('data-target');
+            const image = document.getElementById(`${targetId}`);
+
+            if (image.src.includes('star.png')) {
+                image.src = '/static/images/favourite.png';
+            } else {
+                image.src = '/static/images/star.png';
+            }
+        });
+    });
+  });
 
   // let button = document.querySelector('.launch');
 

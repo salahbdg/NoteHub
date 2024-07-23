@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}Favourites{% endblock %}
+
+{% block main %}
+
+<!-- ***** Discover Start ***** -->
+<section class="section">
+  <div class="container mt-4 ">
+    <div class="row">
+        <div class="col-lg-12" style="background-color: red;">
+          
+          <h1 class="mb-4">Favourites</h1>
+          <div class="list-group">
+                  {% for repo_dict in repos_dict %}
+                  <div class="card">
+                    <div class="card-body favourite" data-target="{{ loop.index0 }}">
+
+                      <h5 class="card-title"><a href="{{ repo_dict.html_url }}" class="text-decoration-none" target="_blank">{{ repo_dict.name }}</a></h5>
+                      <p class="mb-1">{{ repo_dict.description }}</p>
+
+                      <!-- Add to Favourites -->
+                      
+                        <button class="rounded-button" type="submit">
+                          <img id="{{ loop.index0 }}" src="/static/images/star.png" alt="star">
+                        </button>
+                      
+                      <!-- End of Add to Favourites -->
+                    </div>
+                  </div>
+                  {% endfor %}
+              
+
+              
+          </div>
+        </div>
+
+        
+
+      
+
+    </div>
+  </div>
+  
+</section>
+
+
+
+<!-- ***** Discover End ***** -->
+
+<script>
+
+</script>
+
+{% endblock %}
+

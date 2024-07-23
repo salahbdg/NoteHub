@@ -26,6 +26,8 @@ def login_required(f):
 
 # transform the string
 def transformString(s):
+    if s is None:
+        return "No description provided"
     if len(s) > 120:
         return s[:120] + "..."
     
@@ -40,7 +42,7 @@ def generateSvg(language, username="admin"):
   linkt = language + username + ref 
 
   # make an API call and store the responses
-  url = f"https://api.github.com/search/repositories?q=language:{language}&sort=stars"
+  url = f"https://api.github.com/search/repositories?q=topic:blockchain&sort=stars"
   r = requests.get(url)
 
   # check if response was successful
@@ -80,7 +82,7 @@ def generateSvg(language, username="admin"):
   my_config.show_y_guides = False
   my_config.width = 1200
   my_config.height = 800
-  my_style = LS('#330066', base_style=LCS)
+  my_style = LS('#1e1e1e', base_style=LCS)
 
 
   chart = pygal.Bar(my_config, style=my_style)

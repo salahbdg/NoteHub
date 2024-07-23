@@ -2,6 +2,9 @@ from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, url_for, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_wtf.csrf import CSRFProtect
+import secrets
+
 
 from notehub_helpers import login_required, generateSvg, transformString
 
@@ -11,6 +14,9 @@ from notehub_helpers import login_required, generateSvg, transformString
 
 # Configure application
 app = Flask(__name__)
+# app.config['SECRET_KEY'] = secrets.token_hex(16)
+# csrf = CSRFProtect(app)
+
 
 
 # Ensure templates are auto-reloaded
@@ -22,6 +28,14 @@ def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
+    return response
+
+@app.after_request
+def set_secure_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    # response.headers['Content-Security-Policy'] = "default-src 'self'"
     return response
 
 # Configure session to use filesystem
@@ -164,7 +178,6 @@ def discover():
 
     # get language
     language = request.args.get('language')
-    print(language)
 
     if language is None:
       return render_template("discover.html")
@@ -176,7 +189,26 @@ def discover():
       # this will render output in flask app
       return render_template('discover.html', chart = chart, repos_dict = repos_dict)
       
-    #return render_template("discover.html")
+@app.route("/favourites", methods=["GET"])
+@login_required
+def favourites():
+    """Show the favourites page"""
+    if session.get("user_id") is None:
+        return redirect(url_for('login'))
+    
+    # username
+    query = "SELECT username FROM Users WHERE ID = ?"
+    username = db.execute(query, session["user_id"])[0]["username"]
+
+    # get language
+    language = 'python'
+
+    chart, repos_dict = generateSvg(language, username)  # this will render output in flask app
+
+    # this will render output in flask app
+    return render_template('favourites.html', chart = chart, repos_dict = repos_dict)
+
+
 
 
 @app.route("/deletePost", methods=["POST"])
@@ -200,3 +232,8 @@ def delete():
 def getUsername(userID):
     return db.execute("SELECT * FROM Users WHERE ID = ?", userID)[0]["username"].capitalize()
 
+
+
+
+if __name__ == "__main__":
+    app.run()
