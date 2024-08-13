@@ -51,7 +51,9 @@
                   <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">{{  post.title }}</h5>
-                        <p class="text-left text">{{ post.postText | safe }}</p>
+                        <div class="text-feed">
+                          {{ post.postText | safe }}
+                        </div>
                         <p class="card-text"><small class="text-muted">Posted on: {{ post.postDate }}</small> By <strong><a href="/{{ username }}">{{ post.UserID | getUsername }}</a></strong> </p>
                         {% if post.UserID == session["user_id"] %}
                           <form action="/deletePost" method="post">
