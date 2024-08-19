@@ -34,15 +34,24 @@ def transformString(s):
     return s
 
 # generate the svg
-def generateSvg(language, username="admin"):
+def generateSvg(language, technology, username="admin"):
     
 
   ref = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(10))
  
-  linkt = language + username + ref 
+  #linkt = language + username + ref 
 
   # make an API call and store the responses
-  url = f"https://api.github.com/search/repositories?q=topic:blockchain&sort=stars"
+  if language is None and technology is not None:
+      url = f"https://api.github.com/search/repositories?q=topic:{technology}&sort=stars"
+  
+  elif language is not None and technology is None:
+      url = f"https://api.github.com/search/repositories?q=language:{language}&sort=stars"
+
+  else:
+      url = f"https://api.github.com/search/repositories?q=language:{language}&topic:{technology}&sort=stars"
+  
+  
   r = requests.get(url)
 
   # check if response was successful
@@ -86,7 +95,7 @@ def generateSvg(language, username="admin"):
 
 
   chart = pygal.Bar(my_config, style=my_style)
-  chart.title = f'Most-Starred {language.upper()} Projects on GitHub'
+  chart.title = f'Most-Starred {language.upper()} Projects on GitHub' if language else f'Most-Starred {technology.upper()} Projects on GitHub'
   chart.x_labels = names
   chart.add('', plot_dicts)
   #chart.render_to_file(f'./static/images/{linkt}.svg')

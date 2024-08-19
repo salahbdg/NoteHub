@@ -178,13 +178,17 @@ def discover():
 
     # get language
     language = request.args.get('language')
+    # get technology
+    technology = request.args.get('technology')
 
-    if language is None:
+    
+
+    if (language is None) and (technology is None):
       return render_template("discover.html")
     
     else:
 
-      chart, repos_dict = generateSvg(language, username)  # this will render output in flask app
+      chart, repos_dict = generateSvg(language, technology, username)  # this will render output in flask app
 
       # this will render output in flask app
       return render_template('discover.html', chart = chart, repos_dict = repos_dict)

@@ -7,31 +7,22 @@
   display: inline-block;
 }
 
-.search-bar select, .search-bar button {
-  display: inline-block;
-
-}
 
 .search-bar select{
   border: none;
   border-radius: 1vh;
   font-size: 2vh;
   outline: none;
-  float: left;
-  width: 75%;
+  width: 100%;
   padding: 1vh;
-
+  margin: 1rem;
 }
 
 .search-bar button{
   border: none;
-  border-radius: 1vh;
-  font-size: 2vh;
-  padding: 0.75vh;
-  outline: none;
-  width: 20%;
-  margin-left: 4%;
-  float: right;
+  position: relative;
+
+  margin: 1rem;
 }
 
 @media screen and (max-width: 900px) {
@@ -67,7 +58,7 @@
 }
 
 .rounded-button img:hover {
-  filter: invert(0.5); /* Change the color of the icon on hover */
+  filter: invert(0.1); /* Change the color of the icon on hover */
 }
 
 .more-text {

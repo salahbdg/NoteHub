@@ -30,8 +30,26 @@
                           <option value="ts">TypeScript</option>
                           <option value="go">Go</option>
                         </select>
+
+
+                        <select name="technology" class="select-language">
+                          <option selected disabled>Select a technology</option>
+                          <option value="algorithm">Algorithms</option>
+                          <option value="artificial-intelligence">Artificial-intelligence</option>
+                          <option value="blockchain">Blockchain</option>
+                          <option value="cryptocurrency">Cryptocurrency</option>
+                          <option value="cybersecurity">Cybersecurity</option>
+                          <option value="data-science">Data-science</option>
+                          <option value="deep-learning">Deep-learning</option>
+                          <option value="devops">Devops</option>
+                          <option value="docker">Docker</option>
+                          <option value="hacking">Hacking</option>
+                          <option value="machine-learning">Machine-learning</option>
+                          <option value="mobile-development">Mobile-development</option>
+                          <option value="web-development">Web-development</option>
+                        </select>
                         
-                        <button type="submit" class="main-button launch-search">Launch</button>
+                        <button type="submit" class="main-button ">Launch</button>
                     </form>
                 </div>
                 
@@ -45,14 +63,14 @@
               <div class="list-group">
                       {% for repo_dict in repos_dict %}
                       <div class="card">
-                        <div class="card-body favourite" data-target="{{ loop.index0 }}">
+                        <div class="card-body">
 
                           <h5 class="card-title"><a href="{{ repo_dict.html_url }}" class="text-decoration-none" target="_blank">{{ repo_dict.name }}</a></h5>
                           <p class="mb-1">{{ repo_dict.description }}</p>
 
                           <!-- Add to Favourites -->
                           
-                            <button class="rounded-button" type="submit">
+                            <button class="rounded-button favourite" data-target="{{ loop.index0 }}" type="submit">
                               <img id="{{ loop.index0 }}" src="/static/images/star.png" alt="star">
                             </button>
                          
@@ -80,13 +98,12 @@
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
-    const cards = document.querySelectorAll('.favourite');
+    const favs = document.querySelectorAll('.favourite');
 
-    cards.forEach(card => {
-        card.style.cursor = 'pointer';
-        card.addEventListener('click', function() {
-            const targetId = card.getAttribute('data-target');
-            console.log("hhhhhh" + targetId);
+    favs.forEach(fav => {
+      fav.style.cursor = 'pointer';
+      fav.addEventListener('click', function() {
+            const targetId = fav.getAttribute('data-target');
             const image = document.getElementById(`${targetId}`);
 
             if (image.src.includes('star.png')) {
